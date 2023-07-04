@@ -1,0 +1,147 @@
+/*链接样式*/
+ul,li {
+  list-style: none;
+}
+a {
+  color: #333;
+  text-decoration: none;
+}
+/*头部部分*/
+#wrapper #main {
+  width: 1200px;
+  margin: 0 auto;
+}
+#wrapper #main #header {
+  display:block;
+}
+#wrapper #main #header .logo {
+  font-size: 50px;
+  margin: 20px 30px;
+}
+#wrapper #main #header .icons li{
+  display: inline-block;
+  overflow: visible;
+}
+#wrapper #main #header .icons .label {
+  margin: 0 20px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  background-color: #eb97be;
+  color: #fff;
+}
+#wrapper #main #banner .content h1 {
+  margin: 40px 0;
+}
+#wrapper #main #banner .content p {
+  font-size: 16px;
+  color: #777;
+  margin: 20px;
+}
+#wrapper #main #banner .content .actions {
+  margin: 30px;
+}
+#wrapper #main #banner .content .actions .button {
+  padding: 10px 30px;
+  border-radius: 20px;
+  background-color: #eb97be;
+  color: #fff;
+}
+#wrapper #main #banner .image img {
+  width: 100%;
+}
+#wrapper #main .major {
+  margin-top: 40px auto;
+}
+#wrapper #main .major h2 {
+  text-align: center;
+  padding: 10px 30px;
+  border-radius: 20px;
+  background-color: #eb97be;
+  color: #fff;
+}
+#wrapper #main .features {
+  margin-top: 10px;
+  display: block;
+}
+#wrapper #main .features .content p {
+  color: #777;
+}
+#wrapper #main .posts {
+  display: block;
+}
+#wrapper #main .posts article {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #ccc;
+}
+#wrapper #main .posts .image img {
+  display: block;
+  width: 95%;
+  margin: 10px 20px;
+}
+#wrapper #main .posts h3 {
+  padding: 20px 0;
+}
+#wrapper #main .posts p {
+  color: #777;
+}
+#wrapper #main .posts .actions li {
+  width: 100%;
+  text-align: right;
+}
+#wrapper #main .posts .actions li .button {
+  text-align: center;
+  padding: 10px 30px;
+  border-radius: 20px;
+  background-color: #eb97be;
+  color: #fff;
+}
+#wrapper #sidebar {
+  color: #777;
+  width: 1250px;
+  margin: 20px 20px;
+}
+#wrapper #sidebar .inner {
+  display: block;
+}
+#wrapper #sidebar .inner .innerleft {
+  display: block;
+  margin: auto;
+}
+#wrapper #sidebar .inner #search #query {
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+#wrapper #sidebar .inner #menu {
+  width: 100%;
+  margin-top: 20px;
+}
+#wrapper #sidebar .inner #menu .major {
+  text-align: center;
+}
+#wrapper #sidebar .inner #menu .h2{
+  background-color: #eb97be;
+  color: #fff;
+}
+#wrapper #sidebar .inner #menu ul {
+  display: block;
+}
+#wrapper #sidebar .inner #menu ul li {
+  padding: 20px 10px;
+  text-align: center;
+  background-color: beige;
+}
+#wrapper #sidebar .inner p {
+  padding: 10px;
+}
+#wrapper #sidebar .inner .contact {
+  display: block;
+  text-align: center;
+  margin: 10px;
+}
+#wrapper #sidebar .inner .contact li a {
+  color: #777;
+}
+#wrapper #sidebar #footer a {
+  color: #777;
+}

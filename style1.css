@@ -1,0 +1,129 @@
+
+ul,li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+#main {
+  width: 1250px;
+  margin: 0 auto;
+  padding: 20px;
+}
+#main .inner #header {
+  text-align: center;
+}
+#main .inner #header .logo {
+  font-size: 40px;
+}
+#main .inner #header .icons {
+  margin-top: 20px;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+}
+#main .inner #header .icons .label {
+  padding: 0 20px;
+}
+#main .inner #header .icons .label:hover {
+  color: #3296fa;
+}
+#main .inner #banner {
+  margin: 0 auto;
+}
+#main .inner #banner .content h1 {
+  margin: 20px;
+  text-align: center;
+}
+#main .inner #banner .content h1:hover {
+  color: #3296fa;
+}
+#main .inner #banner .content p {
+  padding: 20px;
+  color: #777;
+}
+#main .inner #banner .content .actions li .button {
+  color: #3296fa;
+  font-weight: bold;
+  font-size: 30px;
+  margin: 20px;
+}
+#main .inner #banner .image img {
+  width: 100%;
+  height: 400px;
+}
+#main .inner .major h2 {
+  color: #3296fa;
+  font-weight: bold;
+  font-size: 30px;
+  margin: 20px;
+}
+#main .inner .features {
+  display: grid;
+  grid: 25%;
+}
+#main .inner .features .content {
+  text-align: center;
+}
+#main .inner .features .content h3 {
+  margin: 10px 0;
+}
+#main .inner .features .content p {
+  color: #777;
+}
+#main .inner .posts {
+  display: grid;
+  grid: 20px;
+}
+#main .inner .posts h3 {
+  color: #3296fa;
+  margin: 10px 0;
+}
+#main .inner .posts p {
+  color: #777;
+  margin: 10px 0;
+}
+#main .inner .posts .actions {
+  display: inline-block;
+}
+#sidebar {
+  width: 1250px;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+#sidebar .inner #search #query {
+  padding: 10px;
+}
+#sidebar .inner #menu {
+  margin: 0 20px;
+}
+#sidebar .inner #menu ul li {
+  padding-top: 10px;
+  color: #ccc;
+}
+#sidebar .inner p {
+  color: #ccc;
+}
+#sidebar .inner p:hover {
+  color: #3296fa;
+}
+#sidebar .inner .contact li {
+  padding-top: 10px;
+  color: #ccc;
+}
+#sidebar .inner .contact li a {
+  color: #ccc;
+}
+#sidebar .inner .contact li a:hover {
+  color: #3296fa;
+}
+#sidebar .inner .contact li:hover {
+  color: #3296fa;
+}
+#sidebar #footer .copyright {
+  color: #333;
+}
+#sidebar #footer .copyright a {
+  color: #333;
+}
