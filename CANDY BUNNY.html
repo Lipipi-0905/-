@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CANDY BUNNY</title>
+    <style>
+        body {
+            background-color: beige;
+        }
+        #gameArea {
+            position: relative;
+            height: 600px;
+            width: 800px;
+            border: 5px solid rgb(236, 206, 152);
+            border-radius: 30px;
+            background-color:mistyrose;
+        }
+        .bullet {
+            position: absolute;
+            height: 30px;
+            width: 30px;
+            background-image: url('heart.png');
+            background-size: cover;
+        }
+        .coin {
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            background-image: url('candy.png') ;
+            background-size: cover;
+        }
+        #rules {
+            position: absolute;
+            right: 40px;
+            top:5%;
+            width: 500px; 
+            padding: 30px;
+            border: 5px solid rgb(236, 206, 152);
+            border-radius: 30px;
+            background-color:mistyrose;
+        }
+        #timer, #score {
+            position: absolute;
+            right: 40px;  
+            width: 500px;  
+            padding: 20px;
+            border: 5px solid rgb(236, 206, 152);
+            border-radius: 30px;
+            background-color:mistyrose;
+            text-align: center;
+            font-family: "Comic Sans MS";
+            font-size: large;
+            font-weight: bold;
+        }
+        #timer {
+            top: calc(20% + 200px); 
+        }
+        #timer:before {
+            content: "time：";
+            font-family: "Comic Sans MS";
+            font-size: large;
+        }
+        #score {
+            top: calc(20% + 200px + 50px); 
+ 
+        }
+        #score::before{
+            content: "score: ";
+            font-family: "Comic Sans MS";
+            font-size: large;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameArea"></div>
+    <script >
+        let bullets = [];
+let coins = [];
+let score = 0;
+let scoreElement;
+document.getElementById('gameArea').onclick = fireBullet;
+var timer;
+var count = 30;
+var scoreCount = 0;
+window.onload = function() {
+    score = 0; 
+    scoreElement = document.getElementById('score'); 
+    timer = document.getElementById('timer');
+    for (let i = 0; i < 50; i++) {
+        createCoin();
+    }
+}
+function updateScore() {
+    score++; 
+    scoreElement.innerText = score;
+}
+    let launchImage = document.createElement('div');
+    launchImage.style.backgroundImage = 'url("rabbit.png")';
+    launchImage.style.backgroundSize = 'cover';
+    launchImage.style.position = 'absolute';
+    launchImage.style.left = '400px';
+    launchImage.style.top = '550px';
+    launchImage.style.width = '50px';
+    launchImage.style.height = '50px';
+    document.getElementById('gameArea').appendChild(launchImage);
+function createCoin() { 
+    let coin = document.createElement('div');
+    coin.style.backgroundImage = 'url("candy.png")';
+    coin.style.backgroundSize = 'cover'; 
+    coin.className = 'coin';
+    coin.style.left = Math.random() * 700 + 'px';
+    coin.style.top = Math.random() * 500 + 'px';
+    coin.style.width = '30px';  // 设置金币的宽度
+    coin.style.height = '30px';  // 设置金币的高度
+    document.getElementById('gameArea').appendChild(coin);
+    coins.push(coin);
+}
+var timerStarted = false;  // 添加一个标志来检查计时器是否已经开始
+function fireBullet(e) {
+    let bullet = document.createElement('div');
+    bullet.style.backgroundImage = 'url("heart.png")';
+    bullet.style.backgroundSize = 'cover';
+    bullet.className = 'bullet';
+    bullet.style.left = '400px';
+    bullet.style.top = '580px';
+    bullet.style.width = '30px';  // 设置子弹的宽度
+    bullet.style.height = '30px';  // 设置子弹的高度
+    bullet.direction = calculateDirection(e);
+    document.getElementById('gameArea').appendChild(bullet);
+    bullets.push(bullet);
+    if (!timerStarted) {
+        timerStarted = true;
+        var interval = setInterval(function() {
+            count--;
+            timer.textContent = count;
+            if (count <= 0) {
+                clearInterval(interval);
+            }
+        }, 1000);
+    }
+}
+document.getElementById('gameArea').onclick = fireBullet;
+function calculateDirection(e) {
+    let x = e.clientX - 400;
+    let y = 580 - e.clientY;
+    return Math.atan2(y, x);
+}
+function checkCollision() {
+    let coinsToRemove = []; // 用于保存要删除的金币
+    outer: for (let i = 0; i < bullets.length; i++) {
+        let coinsInPath = getCoinsInPath(bullets[i]);
+        for (let j = 0; j < coinsInPath.length; j++) {
+            if (isColliding(bullets[i], coinsInPath[j])) {
+                coinsToRemove.push(coinsInPath[j]); // 将要删除的金币添加到数组中
+                updateScore(); // 在这里调用updateScore函数
+                continue outer;
+            }
+        }
+    }
+       for (let coin of coinsToRemove) {
+        coin.parentNode.removeChild(coin);
+        let index = coins.indexOf(coin);
+        if (index !== -1) {
+            coins.splice(index, 1);
+        }
+    }
+ }
+function getCoinsInPath(bullet) {
+    let coinsInPath = [];
+    for (let i = 0; i < coins.length; i++) {
+        if (isInPath(bullet, coins[i])) {
+            coinsInPath.push(coins[i]);
+        }
+    }
+    return coinsInPath;
+}
+function isInPath(bullet, coin) {
+    let bulletLeft = parseFloat(bullet.style.left);
+    let bulletTop = parseFloat(bullet.style.top);
+    let coinLeft = parseFloat(coin.style.left);
+    let coinTop = parseFloat(coin.style.top);
+    let angle = Math.atan2(bulletTop - coinTop, coinLeft - bulletLeft);
+    let diff = angle - bullet.direction;
+    if (diff > Math.PI) {
+        diff -= 2 * Math.PI;  // 如果角度差大于π，减去2π
+    } else if (diff < -Math.PI) {
+        diff += 2 * Math.PI;  // 如果角度差小于-π，加上2π
+    }
+    let isAhead = (Math.cos(bullet.direction) * (coinLeft - bulletLeft) + Math.sin(bullet.direction) * (coinTop - bulletTop)) > 0;
+    return isAhead && Math.abs(diff) <= 0.05 * Math.PI / 180;
+}
+function isColliding(bullets, coin, coinsArray) {
+    var hitSound = document.getElementById('hitSound');
+    hitSound.play();
+    let rect1 = bullets.getBoundingClientRect();
+    let rect2 = coin.getBoundingClientRect();
+    let isCollide = !(rect2.left > rect1.right ||
+        rect1.left > rect2.right ||
+        rect2.top > rect1.bottom ||
+        rect1.top > rect2.bottom);
+      if (isCollide) {
+        coin.parentNode.removeChild(coin);
+        let index = coinsArray.indexOf(coin);
+        if (index > -1) {
+            coinsArray.splice(index, 1);
+        }
+        score++; // 增加分数
+        updateScore(); // 在这里调用updateScore函数
+    }
+    return isCollide;
+}
+setInterval(checkCollision, 1000 / 60);
+function updateBullets() {
+    for (let i = 0; i < bullets.length; i++) {
+        bullets[i].style.left = parseFloat(bullets[i].style.left) + 10 * Math.cos(bullets[i].direction) + 'px';
+        bullets[i].style.top = parseFloat(bullets[i].style.top) - 10 * Math.sin(bullets[i].direction) + 'px';
+        if (parseFloat(bullets[i].style.left) < 0 || parseFloat(bullets[i].style.left) > 800 || parseFloat(bullets[i].style.top) < 0 || parseInt(bullets[i].style.top) > 600) {
+            bullets[i].parentNode.removeChild(bullets[i]);
+            bullets.splice(i, 1);
+            i--;
+        } else {
+    for (let j = 0; j < coins.length; j++) {
+        if (isColliding(bullets[i], coins[j], coins)) {
+        coinsToRemove.push(coins[j]);
+        coins[j].parentNode.removeChild(coins[j]);
+        coins.splice(j, 1);
+        updateScore(); // 在这里调用updateScore函数
+        break;
+            }
+          }
+        }
+    }
+}
+setInterval(updateBullets, 1000 / 60);
+var timer = document.getElementById('timer');
+var count = 30;
+var scoreCount = 0;
+    </script>
+    <div id="rules">
+        <h2>CANDY BUNNY</h2>
+        <p style="font-family:'Comic Sans MS';font-size: large;">This is a shooting class of small game, you can click on the game area to launch heart, let the bunny eat sweet candy</p>
+    </div>
+    <div id="timer">30</div>
+    <div id="score">0</div>
+    <audio id="hitSound">
+        <source src="ding.ogg" type="audio/mpeg">
+      </audio>
+</body>
+</html>
